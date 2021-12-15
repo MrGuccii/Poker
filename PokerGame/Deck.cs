@@ -1,30 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PokerGame
 {
 	class Deck
 	{
-		public List<Card> DeckOfCards { get; set; }
+		public int DeckSize => DeckOfCards.Count;
+		private Queue<Card> DeckOfCards = new Queue<Card>();
 
-		public Deck()
+		public Deck(int count = 1)
 		{
-			DeckOfCards = new List<Card>();
-			
+			for (int i = 0; i < count; i++)
+			{
+				FillUpDeck();
+			}
+			ShuffleDeck();
+		}
+
+		private void FillUpDeck()
+		{
 			int sizeOfCardValue = Enum.GetValues(typeof(CardValue)).Length;
-			int sizeOfColor = Enum.GetValues(typeof(Color)).Length;
 			int sizeOfSymbol = Enum.GetValues(typeof(Symbol)).Length;
 
-			for (int i = 0; i < sizeOfColor; i++)
+			for (int h = 0; h < sizeOfSymbol; h++)
 			{
-				for (int h = 0; h < sizeOfSymbol; h++)
+				for (int y = 0; y < sizeOfCardValue; y++)
 				{
-					for (int y = 0; y < sizeOfCardValue; y++)
-					{
-						DeckOfCards.Add(new Card((Color)i, (Symbol)h, (CardValue)y));
-					}
+					DeckOfCards.Enqueue(new Card((Symbol)h, (CardValue)y));
 				}
 			}
+		}
+
+		Random rnd = new Random();
+
+		private void ShuffleDeck()
+		{
+			List<Card> randomizedList = DeckOfCards.OrderBy(x => rnd.Next()).ToList();
+			DeckOfCards = new Queue<Card>();
+
+			foreach (var item in randomizedList)
+			{
+				DeckOfCards.Enqueue(item);
+			}
+		}
+
+		public Card Draw()
+		{
+			return DeckOfCards.Dequeue();
 		}
 	}
 }

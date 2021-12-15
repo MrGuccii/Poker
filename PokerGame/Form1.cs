@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PokerGame.Enums;
+using System;
 using System.Windows.Forms;
 
 namespace PokerGame
@@ -37,28 +31,20 @@ namespace PokerGame
 
 		private void BT_Play_Click(object sender, EventArgs e)
 		{
-			Poker poker = new Poker(_gameMode);
-			poker.GenerateCards();
-			foreach (var item in poker.PlayerCards)
+			if (_gameMode == "Five laps")
 			{
-				ListBox_Player.Items.Add(ThreeAttributesOfCard(item));
+				Deal deal = new FiveCardDraw();
+				LB_PlayerCards.Text = deal.PrintCards(WhichPlayer.PLAYER1);
+				LB_ComputerCards.Text = deal.PrintCards(WhichPlayer.COMPUTER);
+				LB_Winner.Text = "The winner is: " + deal.GetWinningHand();
 			}
-			foreach (var item in poker.ComputerCards)
+			/*else
 			{
-				ListBox_Computer.Items.Add(ThreeAttributesOfCard(item));
-			}
-			if (poker.GameMode=="Texas hold-em")
-			{
-				foreach (var item in poker.TableCards)
-				{
-					ListBox_Table.Items.Add(ThreeAttributesOfCard(item));
-				}
-			}
-		}
-
-		private string ThreeAttributesOfCard(Card card)
-		{ 
-			return card.ColorOfCard+", "+card.SymbolOfCard+", "+card.ValueOfCard;
+				Deal deal = new TexasHoldem();
+				LB_PlayerCards.Text = deal.PrintCards(WhichPlayer.PLAYER1);
+				LB_ComputerCards.Text = deal.PrintCards(WhichPlayer.COMPUTER);
+				LB_Winner.Text = "The winner is: " + deal.GetWinningHand();
+			}*/
 		}
 	}
 }

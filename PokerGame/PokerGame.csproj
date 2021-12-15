@@ -47,20 +47,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="Deal.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Enums\CardValue.cs" />
-    <Compile Include="Enums\Color.cs" />
-    <Compile Include="Enums\Combinations.cs" />
+    <Compile Include="Enums\WhichPlayer.cs" />
+    <Compile Include="FiveCardDraw.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Poker.cs" />
+    <Compile Include="Hand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\Symbol.cs" />
+    <Compile Include="TexasHoldem.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

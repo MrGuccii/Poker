@@ -1,47 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerGame
 {
 	class Card
 	{
-		public Color ColorOfCard { get; set; }
-		public Symbol SymbolOfCard { get; set; }
-		public CardValue ValueOfCard { get; set; }
-
-		static Queue<Card> randomizedDeck = new Queue<Card>();
-
-		private static Random rnd = new Random();
-
-		public Card()
-		{
-			if (randomizedDeck.Count==0)
-			{
-				ShuffleDeck();
-			}
-			Card newCard = randomizedDeck.Dequeue();
-			ColorOfCard = newCard.ColorOfCard;
-			SymbolOfCard = newCard.SymbolOfCard;
-			ValueOfCard = newCard.ValueOfCard;
-		}
+		public Symbol SymbolOfCard { get; }
+		public CardValue ValueOfCard { get; }
 		
-		public Card(Color ColorOfCard, Symbol SymbolOfCard, CardValue ValueOfCard)
+		public Card(Symbol SymbolOfCard, CardValue ValueOfCard)
 		{
-			this.ColorOfCard = ColorOfCard;
 			this.SymbolOfCard = SymbolOfCard;
 			this.ValueOfCard = ValueOfCard;
 		}
 
-		private void ShuffleDeck()
+		public override string ToString()
 		{
-			Deck deck = new Deck();
-			List<Card> randomizedList = deck.DeckOfCards.OrderBy(x => rnd.Next()).ToList();
-			foreach (var item in randomizedList)
+			return getValueChar() + getSymbolChar();
+		}
+
+		private char getSymbolChar()
+		{
+			switch (SymbolOfCard)
 			{
-				randomizedDeck.Enqueue(item);
+				case Symbol.CLUB:
+					return '♣';
+				case Symbol.DIAMOND:
+					return '♦';
+				case Symbol.HEART:
+					return '♥';
+				case Symbol.SPADE:
+					return '♠';
+				default:
+					return '?';
+			}
+		}
+
+		private string getValueChar()
+		{
+			switch (ValueOfCard)
+			{
+				case CardValue.TWO:
+					return "2";
+				case CardValue.THREE:
+					return "3";
+				case CardValue.FOUR:
+					return "4";
+				case CardValue.FIVE:
+					return "5";
+				case CardValue.SIX:
+					return "6";
+				case CardValue.SEVEN:
+					return "7";
+				case CardValue.EIGHT:
+					return "8";
+				case CardValue.NINE:
+					return "9";
+				case CardValue.TEN:
+					return "10";
+				case CardValue.JUMBO:
+					return "J";
+				case CardValue.DAMA:
+					return "D";
+				case CardValue.KING:
+					return "K";
+				case CardValue.ACE:
+					return "A";
+				default:
+					return "?";
 			}
 		}
 	}
